@@ -153,6 +153,14 @@ dropAll(X,[Y|L],[Y|R]) :- X\=Y, dropAll(X,L,R).
 
 all(_,[]).
 all(X,[Y|T]):-copy_term(X,Y),all(X,T).
+% copy_term(X,Y):
+%– clones term X and unifies the result with Y
+%– it is basically a unification check that do not affect the first argument, but only second
+% motivation
+% all(_,[]).
+% all(X,[X|T]):-all(X,T).
+% ?-all(p(X),[p(1),p(1),p(1)]). -> Yes
+% ?-all(p(X),[p(1),p(1),p(2)]). -> No!!!! What happened?
 
 % fromList(+List,-Graph) :- yields a graph from a list 
 % (e.g., from [A,B,C], it gets  A -> B -> C, represented as [e(A,B),e(B,C))
