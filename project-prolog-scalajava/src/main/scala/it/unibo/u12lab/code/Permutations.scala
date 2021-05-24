@@ -15,12 +15,16 @@ object Permutations extends App {
   // now let's do permutations
   // fill this method remove such that it works as of the next println
   // - check e.g. how method "List.split" works
-  def removeAtPos[A](list:List[A], n:Int) = ???
+  def removeAtPos[A](list:List[A], n:Int): List[A] = (list, n) match {
+    case (Nil, _) => Nil
+    case (_::t, 0) => t
+    case (h::t, n) => h :: removeAtPos(t, n-1)
+  }
   println(removeAtPos(List(10,20,30,40),1)) // 10,30,40
 
   def permutations[A](list: List[A]): Stream[List[A]] = list match {
     case Nil => Stream(Nil)
-    case _ => ???
+    case _ =>
     /* here a for comprehension that:
        - makes i range across all indexes of list (converted as stream)
        - assigns e to element at position i
@@ -28,10 +32,17 @@ object Permutations extends App {
        - makes pr range across all results of recursively calling permutations on r
        - combines by :: e with pr
        */
+        for(
+          i <- list.indices.toStream;
+          e = list(i);
+          r <- permutations(removeAtPos(list, i))
+        ) yield e :: r
   }
 
   val list = List(10,20,30,40)
   println(permutations(list).toList)
+  println(list.permutations.toList)
 
+  println("Same as List.permutations? " + (permutations(list).toList.toSet == list.permutations.toSet))
 }
 
