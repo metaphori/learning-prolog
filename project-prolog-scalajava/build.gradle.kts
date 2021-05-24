@@ -1,4 +1,5 @@
 plugins {
+    java
     scala
 }
 
@@ -14,4 +15,14 @@ dependencies {
 tasks.withType<ScalaCompile> {
     sourceCompatibility = "1.8"
     targetCompatibility = "1.8"
+}
+
+val jobClass: String by project
+tasks.register<JavaExec>("runJob") {
+    main = "$jobClass"
+    classpath = sourceSets["main"].runtimeClasspath
+
+    doFirst {
+        println("* main job class  : $jobClass")
+    }
 }
