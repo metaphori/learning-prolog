@@ -8,3 +8,10 @@ Running main programs
 Launching TuProlog GUI
 
 - ` ./gradlew runJob -PjobClass=alice.tuprologx.ide.GUILauncher`
+
+Playing TTT
+
+```
+$ sbt "runMain alice.tuprologx.ide.CUIConsole"
+>  consult('src/main/resources/ttt.pl').
+```
