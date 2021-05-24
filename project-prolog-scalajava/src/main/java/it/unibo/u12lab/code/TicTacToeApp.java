@@ -65,6 +65,7 @@ public class TicTacToeApp {
         frame.add(BorderLayout.SOUTH,s);
         frame.setSize(200,230);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args){
