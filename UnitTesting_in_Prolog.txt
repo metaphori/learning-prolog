@@ -1,0 +1,42 @@
+UNIT TESTING IN PROLOG (SWI-PROLOG impl)
+
+1) Installation PLUnit
+
+  $ git clone git://prolog.cs.vu.nl/home/pl/git/pl.git    OR   $ git clone https://github.com/lamby/pkg-swi-prolog/
+  $ cd pl/packages/plunit
+  $ ./configure
+  $ sudo make install
+  
+2) Check installation
+
+ $ cd pl/packages/plunit/examples/ # in the cloned git repo
+ $ swipl -g "[simple],run_tests,halt."
+ 
+3A) Write a Prolog module: 'mymodule.pl'
+
+  :- module(my_module_name, [mypred/2, otherpred/1, ...] ).
+
+  mypred(X,Y) :- ....
+  
+  otherpred([]).
+  otherpred([X|Xs]) :- ...
+
+3B) Write a unit test in Prolog
+
+:- begin_tests(testmodulename).
+:- use_module('mymodule.pl', [mypred/2]). 
+% if imported predicates are not explicitly defined, fully qualified names (my_module_name:otherpred/1) must be used
+
+test(test_name) :- mypred( my_module_name:otherpred(..), ....).     
+
+:- end_tests(testmodulename).
+
+
+4) Run unit test
+
+ $ swipl
+ 
+ ?> consult('MyTests.pl').
+ ?> run_tests.
+ 
+ 
